@@ -1,28 +1,28 @@
-# Welcome to Serverless!
-#
-# This file is the main config file for your service.
-# It's very minimal at this point and uses default values.
-# You can always add more config options for more control.
-# We've included some commented out config examples here.
-# Just uncomment any of them to get that config option.
-#
-# For full config options, check the docs:
-#    docs.serverless.com
-#
-# Happy Coding!
-
 service: voucher-sls
-# app and org for use with dashboard.serverless.com
-#app: your-app-name
-#org: your-org-name
 
-# You can pin your service to only deploy with a specific Serverless version
-# Check out our docs for more details
-# frameworkVersion: "=X.X.X"
+plugins:
+  - serverless-python-requirements
+
+package:
+  exclude:
+    - node_modules/**
+    - .idea/**
+    - .requirements/**
+    - env/**
+    - README.md
+    - package.json
+    - package-lock.json
+    - requirements.txt
+    - event.json
+    - Pipfile
+    - Pipfile.lock
+    - setup.py
 
 provider:
   name: aws
   runtime: python3.8
+  httpApi:
+    payload: '2.0'
 
 # you can overwrite defaults here
   stage: dev
@@ -43,10 +43,20 @@ provider:
           - - "arn:aws:s3:::"
             - "Ref" : "ServerlessDeploymentBucket"
             - "/*"
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:DescribeTable
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
 
 # you can define service wide environment variables here
-#  environment:
-#    variable1: value1
+  environment:
+    DYNAMODB_TABLE: code-table
 
 # you can add packaging information here
 #package:
@@ -58,26 +68,46 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  test:
-    handler: handler.test
+  create:
+    handler: src.voucher.create.handler.create
+    package:
+      include:
+        - src/**
+      artifact:
     events:
       - httpApi:
           method: POST
-          path: /test
-
+          path: /create
+  list:
+    handler: src.voucher.list.handler.list_codes
+    package:
+      include:
+        - src/**
+      artifact:
+    events:
+      - httpApi:
+          method: GET
+          path: /list
 
 #    Define function environment variables here
 #    environment:
 #      variable2: value2
 
-# you can add CloudFormation resource templates here
-#resources:
-#  Resources:
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
-#  Outputs:
-#     NewOutput:
-#       Description: "Description for the output"
-#       Value: "Some output value"
+resources:
+  Resources:
+    TodosDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: value
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: value
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
