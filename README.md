@@ -43,3 +43,9 @@ curl --location --request POST 'https://qh782gawh9.execute-api.us-east-1.amazona
 ```bash
 curl --location --request GET 'https://qh782gawh9.execute-api.us-east-1.amazonaws.com/list'
 ```
+
+### Links
+
+[serverless quick-start](https://www.serverless.com/framework/docs/providers/aws/guide/quick-start/)
+
+[serverless.yml reference](https://www.serverless.com/framework/docs/providers/aws/guide/serverless.yml/)
