@@ -1,4 +1,3 @@
-SHELL := bash
 
 install:
 	@npm install
