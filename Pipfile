@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 pynamodb = "*"
 test-voucher-sls = {editable = true, path = "."}
+marshmallow = "*"
 
 [requires]
 python_version = "3.8"

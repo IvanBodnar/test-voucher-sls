@@ -1,11 +1,15 @@
 import json
 
+from src.voucher.common.decorators import process_inputs
 
-def deco(event: dict, context):
+
+@process_inputs
+def deco(event, context):
+    print('---EVENT---', type(event))
 
     response = {
         "statusCode": 200,
-        "body": json.dumps(event),
+        "body": "",
     }
 
     return response

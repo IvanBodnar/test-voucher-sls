@@ -1,39 +1,42 @@
 {
     "version": "2.0",
-    "routeKey": "POST /create",
-    "rawPath": "/create",
-    "rawQueryString": "",
+    "routeKey": "GET /deco",
+    "rawPath": "/deco",
+    "rawQueryString": "qs=query-string",
     "headers": {
         "accept": "*/*",
         "accept-encoding": "gzip, deflate, br",
-        "content-length": "48",
+        "content-length": "24",
         "content-type": "application/json",
-        "host": "qh782gawh9.execute-api.us-east-1.amazonaws.com",
-        "postman-token": "6a8d3616-05c5-438d-9c1c-ad07caa0e01d",
+        "host": "fyy8m30ho6.execute-api.us-east-1.amazonaws.com",
+        "postman-token": "8ebe4bc6-5f04-44a7-a81b-04e023a5f000",
         "user-agent": "PostmanRuntime/7.26.1",
-        "x-amzn-trace-id": "Root=1-5f07a00b-2804cf2005d3cf8057c50ba8",
+        "x-amzn-trace-id": "Root=1-5f088c95-5b5ebaf8792c1c405bf06418",
         "x-forwarded-for": "186.18.152.55",
         "x-forwarded-port": "443",
         "x-forwarded-proto": "https"
     },
+    "queryStringParameters": {
+        "qs": "query-string"
+    },
     "requestContext": {
         "accountId": "690899313230",
-        "apiId": "qh782gawh9",
-        "domainName": "qh782gawh9.execute-api.us-east-1.amazonaws.com",
-        "domainPrefix": "qh782gawh9",
+        "apiId": "fyy8m30ho6",
+        "domainName": "fyy8m30ho6.execute-api.us-east-1.amazonaws.com",
+        "domainPrefix": "fyy8m30ho6",
         "http": {
-            "method": "POST",
-            "path": "/create",
+            "method": "GET",
+            "path": "/deco",
             "protocol": "HTTP/1.1",
             "sourceIp": "186.18.152.55",
             "userAgent": "PostmanRuntime/7.26.1"
         },
-        "requestId": "PbXxviHFoAMESTA=",
-        "routeKey": "POST /create",
+        "requestId": "PdrnWh_oIAMESVQ=",
+        "routeKey": "GET /deco",
         "stage": "$default",
-        "time": "09/Jul/2020:22:54:03 +0000",
-        "timeEpoch": 1594335243072
+        "time": "10/Jul/2020:15:43:17 +0000",
+        "timeEpoch": 1594395797332
     },
-    "body": "{\n    \"value\": \"222232\",\n    \"brand_id\": \"bbb\"\n}",
+    "body": "{\n    \"field\": \"value\"\n}",
     "isBase64Encoded": false
 }

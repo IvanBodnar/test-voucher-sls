@@ -89,6 +89,17 @@ functions:
           method: GET
           path: /list
 
+  deco:
+    handler: src.voucher.deco.handler.deco
+    package:
+      include:
+        - src/**
+      artifact:
+    events:
+      - httpApi:
+          method: GET
+          path: /deco
+
 #    Define function environment variables here
 #    environment:
 #      variable2: value2
